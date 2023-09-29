@@ -1,0 +1,28 @@
+
+import pygsheets
+gc = pygsheets.authorize(service_file = '/Users/Zixuan Chen/desktop/Python time zone for group members in different location/cred.json')
+
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+now_China = datetime.now(ZoneInfo('Asia/Shanghai'))
+now_Pacific = datetime.now(ZoneInfo('US/Pacific'))
+now_EST = datetime.now(ZoneInfo('US/Eastern'))
+now_Central = datetime.now(ZoneInfo('US/Central'))
+print(f"China time {now_China.isoformat(timespec='seconds')}")
+print(f"Pacific time {now_Pacific.isoformat(timespec='seconds')}")
+print(f"EST time {now_EST.isoformat(timespec='seconds')}")
+print(f"Central time {now_Central.isoformat(timespec='seconds')}")
+
+with open('output.txt', 'w', encoding='utf-8') as output:
+    output.write(f"China time {now_China.isoformat(timespec='seconds')} \n"
+            f"Pacific time {now_Pacific.isoformat(timespec='seconds')} \n"
+            f"EST time {now_EST.isoformat(timespec='seconds')} \n"
+            f"Central time {now_Central.isoformat(timespec='seconds')}")
+sh = gc.open('Investment Portfolio')
+wks = sh[0]
+# for reference, localtime and UTC:
+# now_local = datetime.now().astimezone()
+# now_UTC = datetime.now(tz= timeit.utc)
+# print(f"Local time   {now_local.isoformat(timespec='seconds')}")
+# print(f"UTC          {now_UTC.isoformat(timespec='seconds')}")
